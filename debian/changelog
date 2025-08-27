@@ -1,0 +1,33 @@
+auroraftp (1.0.0-3) unstable; urgency=low
+
+  * Fix lintian warnings and improve packaging quality
+  * Add missing pyproject.toml build dependencies (python3-hatchling, pybuild-plugin-pyproject)
+  * Add upstream metadata file for better package information
+  * Fix debian/watch to check for OpenPGP signatures
+  * Add DEB_BUILD_OPTIONS support for test skipping
+  * Fix long line in build script for lintian compliance
+  * Update author information in pyproject.toml
+
+ -- Robert Clouthier <clouthierrobert@gmail.com>  Tue, 27 Aug 2025 11:00:00 +0000
+
+auroraftp (1.0.0-2) unstable; urgency=low
+
+  * Sync version information with GitHub repository
+  * Update maintainer information and metadata consistency
+  * Fix packaging standards compliance
+
+ -- Robert Clouthier <clouthierrobert@gmail.com>  Tue, 27 Aug 2025 10:45:00 +0000
+
+auroraftp (1.0.0-1) unstable; urgency=low
+
+  * Initial release of AuroraFTP (Closes: #1112136)
+  * Modern FTP/SFTP client with PyQt6 GUI
+  * Support for FTP, FTPS, and SFTP protocols
+  * Secure credential storage using system keyring
+  * Dual-pane file browser interface
+  * Multi-threaded transfer queue with progress tracking
+  * Site manager for connection profiles
+  * Folder synchronization capabilities
+  * Professional packaging with AppImage and .deb distributions
+
+ -- Robert Clouthier <clouthierrobert@gmail.com>  Mon, 26 Aug 2025 12:00:00 +0000

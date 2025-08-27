@@ -1,0 +1,12 @@
+[Desktop Entry]
+Name=AuroraFTP
+Comment=Modern FTP/SFTP client with secure file transfer capabilities
+GenericName=FTP Client
+Exec=auroraftp %U
+Icon=auroraftp
+StartupNotify=true
+Terminal=false
+Type=Application
+Categories=Network;FileTransfer;
+Keywords=ftp;sftp;ftps;file;transfer;upload;download;server;
+MimeType=x-scheme-handler/ftp;x-scheme-handler/ftps;x-scheme-handler/sftp;

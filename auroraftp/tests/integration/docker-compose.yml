@@ -1,0 +1,88 @@
+version: '3.8'
+
+services:
+  # SFTP server for testing
+  sftp:
+    image: atmoz/sftp:latest
+    ports:
+      - "2222:22"
+    command: testuser:testpass:::upload
+    volumes:
+      - sftp_data:/home/testuser/upload
+    environment:
+      - SFTP_USERS=testuser:testpass:1001:1001:upload
+    healthcheck:
+      test: ["CMD", "ssh", "-o", "BatchMode=yes", "-o", "ConnectTimeout=5", "testuser@localhost", "echo", "ok"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Pure-FTP server for testing
+  ftp:
+    image: stilliard/pure-ftpd:hardened
+    ports:
+      - "2121:21"
+      - "30000-30009:30000-30009"
+    environment:
+      - PUBLICHOST=localhost
+      - FTP_USER_NAME=testuser
+      - FTP_USER_PASS=testpass
+      - FTP_USER_HOME=/home/testuser
+      - FTP_USER_UID=1001
+      - FTP_USER_GID=1001
+    volumes:
+      - ftp_data:/home/testuser
+    healthcheck:
+      test: ["CMD", "nc", "-z", "localhost", "21"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # OpenSSH server with SFTP (alternative)
+  openssh:
+    image: linuxserver/openssh-server:latest
+    ports:
+      - "2223:2222"
+    environment:
+      - PUID=1001
+      - PGID=1001
+      - TZ=UTC
+      - PUBLIC_KEY_FILE=/config/ssh_host_keys/ssh_host_rsa_key.pub
+      - SUDO_ACCESS=false
+      - PASSWORD_ACCESS=true
+      - USER_PASSWORD=testpass
+      - USER_NAME=testuser
+    volumes:
+      - openssh_config:/config
+      - openssh_data:/home/testuser
+    healthcheck:
+      test: ["CMD", "nc", "-z", "localhost", "2222"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # FTPS server (FTP with TLS)
+  ftps:
+    image: delfer/alpine-ftp-server
+    ports:
+      - "2990:21"
+      - "21000-21010:21000-21010"
+    environment:
+      - USERS=testuser|testpass
+      - ADDRESS=localhost
+      - MIN_PORT=21000
+      - MAX_PORT=21010
+    volumes:
+      - ftps_data:/ftp/testuser
+    healthcheck:
+      test: ["CMD", "nc", "-z", "localhost", "21"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  sftp_data:
+  ftp_data:
+  openssh_config:
+  openssh_data:
+  ftps_data:

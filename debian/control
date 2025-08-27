@@ -1,0 +1,59 @@
+Source: auroraftp
+Section: net
+Priority: optional
+Maintainer: Robert Clouthier <clouthierrobert@gmail.com>
+Build-Depends: debhelper-compat (= 13),
+               dh-python,
+               python3-all,
+               python3-setuptools,
+               python3-hatchling,
+               pybuild-plugin-pyproject,
+               python3-pyqt6,
+               python3-pyqt6.qtcore,
+               python3-pyqt6.qtgui,
+               python3-pyqt6.qtwidgets,
+               python3-cryptography,
+               python3-keyring,
+               python3-pytest,
+               python3-pytest-qt,
+               python3-pytest-asyncio,
+               python3-ruff
+Standards-Version: 4.7.2
+Homepage: https://github.com/rmc0315/auroraftp
+Vcs-Browser: https://github.com/rmc0315/auroraftp
+Vcs-Git: https://github.com/rmc0315/auroraftp.git
+Rules-Requires-Root: no
+
+Package: auroraftp
+Architecture: all
+Depends: ${python3:Depends},
+         ${misc:Depends},
+         python3-pyqt6,
+         python3-pyqt6.qtcore,
+         python3-pyqt6.qtgui,
+         python3-pyqt6.qtwidgets,
+         python3-cryptography,
+         python3-keyring,
+         python3-aiofiles,
+         libxcb-xinerama0,
+         libxcb-cursor0,
+         libxkbcommon-x11-0
+Recommends: python3-secretstorage,
+            gnome-keyring | kde-cli-tools
+Suggests: openssh-client
+Description: Modern FTP/SFTP client with PyQt6 GUI
+ AuroraFTP is a modern, secure, and user-friendly FTP/SFTP client for Linux
+ built with Python and PyQt6. It provides a clean dual-pane interface for
+ managing file transfers between local and remote systems.
+ .
+ Key features include:
+  * Support for FTP, FTPS, and SFTP protocols
+  * Secure credential storage using system keyring
+  * Drag-and-drop file operations
+  * Multi-threaded transfer queue with progress tracking
+  * Site manager for connection profiles
+  * Folder synchronization capabilities
+  * Real-time transfer monitoring and logging
+ .
+ AuroraFTP emphasizes security by using encrypted credential storage,
+ SSH host key verification, and TLS/SSL support for secure file transfers.

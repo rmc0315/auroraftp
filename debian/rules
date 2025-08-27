@@ -1,0 +1,41 @@
+#!/usr/bin/make -f
+
+export DH_VERBOSE=1
+export PYBUILD_NAME=auroraftp
+
+%:
+	dh $@ --with python3 --buildsystem=pybuild
+
+override_dh_auto_clean:
+	dh_auto_clean
+	rm -rf build/
+	rm -rf dist/
+	rm -rf *.egg-info/
+	rm -rf .pytest_cache/
+	rm -rf htmlcov/
+	find . -name __pycache__ -type d -exec rm -rf {} + || true
+	find . -name "*.pyc" -delete
+
+override_dh_auto_test:
+ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
+	# Run unit tests only during package build
+	PYTHONPATH=. python3 -m pytest tests/unit/ -v
+endif
+
+override_dh_install:
+	dh_install
+	# Install desktop file
+	install -D -m 644 resources/auroraftp.desktop debian/auroraftp/usr/share/applications/auroraftp.desktop
+	# Install icons
+	install -D -m 644 assets/auroraftp_16x16.png debian/auroraftp/usr/share/icons/hicolor/16x16/apps/auroraftp.png
+	install -D -m 644 assets/auroraftp_24x24.png debian/auroraftp/usr/share/icons/hicolor/24x24/apps/auroraftp.png
+	install -D -m 644 assets/auroraftp_32x32.png debian/auroraftp/usr/share/icons/hicolor/32x32/apps/auroraftp.png
+	install -D -m 644 assets/auroraftp_48x48.png debian/auroraftp/usr/share/icons/hicolor/48x48/apps/auroraftp.png
+	install -D -m 644 assets/auroraftp_64x64.png debian/auroraftp/usr/share/icons/hicolor/64x64/apps/auroraftp.png
+	install -D -m 644 assets/auroraftp_128x128.png debian/auroraftp/usr/share/icons/hicolor/128x128/apps/auroraftp.png
+	install -D -m 644 assets/auroraftp_256x256.png debian/auroraftp/usr/share/icons/hicolor/256x256/apps/auroraftp.png
+	# Install man page if it exists
+	if [ -f docs/auroraftp.1 ]; then install -D -m 644 docs/auroraftp.1 debian/auroraftp/usr/share/man/man1/auroraftp.1; fi
+
+override_dh_installchangelogs:
+	dh_installchangelogs CHANGELOG.md
