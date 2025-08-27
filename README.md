@@ -67,9 +67,6 @@ sudo apt-get install -f
 
 **Alternative Download Options:**
 - **Direct .deb**: https://github.com/rmc0315/auroraftp/releases/download/0.1.0.1/auroraftp_0.1.0.1.deb
-- **Source tarball**: https://github.com/rmc0315/auroraftp/releases/download/0.1.0.1/auroraftp_0.1.0.1.tar.xz
-- **Source ZIP**: https://github.com/rmc0315/auroraftp/archive/refs/tags/0.1.0.1.zip
-- **Source tar.gz**: https://github.com/rmc0315/auroraftp/archive/refs/tags/0.1.0.1.tar.gz
 
 ### Install from Source (Development)
 
